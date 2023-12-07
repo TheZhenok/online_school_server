@@ -1,0 +1,31 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+{
+	"name": "roxy",
+
+	// Update the 'dockerComposeFile' list if you have more compose files or use different names.
+	// The .devcontainer/docker-compose.yml file contains any overrides you need/want to make.
+	"dockerComposeFile": [
+		"../docker-compose.yml"
+		// "../docker-compose.yml"
+		// "docker-compose.extend.yml"
+	],
+	"build": {
+        "args": {
+            "BUILDKIT_INLINE_CACHE": "0"
+        }
+    },
+	"service": "app",
+	"workspaceFolder": "/app/",
+	"forwardPorts": [7000],
+	"remoteUser": "root",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"waderyan.nodejs-extension-packn",
+				// "ms-python.vscode-pylance",
+				"cweijan.vscode-postgresql-client2",
+				"gitkraken.GitLens"
+			]
+		}
+	}
+}

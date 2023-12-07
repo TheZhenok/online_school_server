@@ -1,0 +1,42 @@
+version: '3'
+services:
+  db:
+    environment:
+      - POSTGRES_PASSWORD=qwerty
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=online_school
+    image: postgres:13.5
+    container_name: online-school-postgres
+    volumes:
+      - online_school_db:/var/lib/postgresql/data
+      - ./app/db:/docker-entrypoint-initdb.d
+    expose:
+      - 5459
+    ports:
+      - "5459:5459"
+    command: -p 5459
+    # networks:
+    #   - online_school
+
+  app:
+    build: .
+    ports:
+      - "7000:7000"
+    volumes:
+      - .:/app
+    environment:
+      NODE_ENV: development,
+      DOCKER_HOST: "192.168.1.27"
+    command: tail -F /dev/null
+    depends_on:
+      - db
+    # networks:
+    #   - online_school
+
+  # celery:
+
+volumes:
+  online_school_db:
+
+networks:
+  online_school:
